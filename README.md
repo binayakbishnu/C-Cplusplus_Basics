@@ -1,4 +1,4 @@
-# Cplusplus_Basics
+# C/C++ Basics
 
 ## Beginner's approach (development going on)
 
