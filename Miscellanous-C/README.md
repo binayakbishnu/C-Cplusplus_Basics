@@ -1,1 +1,1 @@
-#Few miscellanous problem solving in C
+Few miscellanous problem solving in C
