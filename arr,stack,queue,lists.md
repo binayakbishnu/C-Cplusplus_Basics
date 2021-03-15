@@ -1,4 +1,4 @@
-# Followed by them are two files, one cpp and other py to compare data structures between Python and C++
+# There are two files, one cpp and other py to compare data structures between Python and C++
 We start with array (C++) and list (Python)
 
 Followed by stacks, queue, linked list
