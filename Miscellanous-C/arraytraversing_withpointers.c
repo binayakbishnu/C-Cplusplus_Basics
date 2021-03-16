@@ -20,11 +20,13 @@ int main()
         p++;     //shifting to next element in array
     }
 
+    int *p2 = array;
     for (i = 0; i < s - 1; i++)
     {
-        printf("%d ", array[i]);
+        printf("%d ", *p2);
+        p2++;
     }
-    printf("%d", array[s - 1]);
+    printf("%d", *p2);
 
     return 0;
 }
