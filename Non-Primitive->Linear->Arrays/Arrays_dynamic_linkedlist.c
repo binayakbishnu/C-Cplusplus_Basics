@@ -4,121 +4,109 @@
 struct node
 {
     int data;
-    struct node *next;
+    struct node *joint;
 };
 
-struct node *counter = NULL;
-struct node *first = NULL;
+struct node *head = NULL;
 
-void insert(int inf)
+int isEmpty()
 {
-    struct node *temp = (struct node *)malloc(sizeof(struct node));
-    temp->data = inf;
-    temp->next = counter;
-
-    counter = temp;
+    /*
+    if (head == NULL)
+        return 1;
+    else
+        return 0;
+    */
+    return head == NULL;
 }
 
-void insertstart(int inf)
+void insertbegin(int x)
 {
-    struct node *temp = (struct node *)malloc(sizeof(struct node));
-    temp->data = inf;
-    temp->next = first;
+    struct node *temp = NULL;
+    temp = (struct node *)malloc(sizeof(struct node));
+    if (!temp)
+    {
+        printf("Heap overflow");
+        exit(1);
+    }
+    temp->data = x;
+    temp->joint = NULL;
 
-    first = temp;
-
-    temp->data = inf;
-    temp->next = counter;
-
-    counter = temp;
+    if (head == NULL)
+    {
+        head = temp;
+    }
+    else
+    {
+        temp->joint = head;
+        head = temp;
+    }
 }
 
-void delete ()
+void insertend(int x)
 {
-    struct node *temp = counter;
-    counter = counter->next;
-    free(temp);
+    struct node *temp = NULL;
+    temp = (struct node *)malloc(sizeof(struct node));
+
+    if (!temp)
+    {
+        printf("Heap overflow");
+        exit(1);
+    }
+    temp->data = x;
+    temp->joint = NULL;
+
+    if (head == NULL)
+    {
+        head = temp;
+    }
+    else
+    {
+        struct node *temp2 = NULL;
+        temp2 = head;
+        while (temp2->joint != NULL)
+        {
+            temp2 = temp2->joint;
+        }
+        temp2->joint = temp;
+    }
 }
 
 void display()
 {
-    struct node *temp = counter;
-
-    temp = counter;
-    printf("[ ");
-    while (temp != NULL)
+    if (isEmpty())
+        printf("Stack empty");
+    else
     {
-        printf("%d ", temp->data);
-        temp = temp->next;
+        struct node *temp = NULL;
+        temp = head;
+        while (temp->joint != NULL)
+        {
+            printf("%d\nv\n", temp->data);
+            temp = temp->joint;
+        }
+        printf("%d", temp->data);
     }
-    printf("]\n");
 }
 
 int main()
 {
-    // insert(4);
-    // insert(5);
-    // display();
+    insertbegin(2);
+    insertbegin(3);
+    insertbegin(9);
 
-    char cont = 'y';
-    char choice = 'i';
-    int i = 1;
-    while (cont == 'y')
-    {
-        printf("Enter choice(i/d): ");
-        scanf(" %c", &choice);
+    insertend(5);
+    insertend(1);
 
-        if (choice == 'i')
-        {
-            if (i)
-            {
-                printf("Enter data: ");
-                int d;
-                scanf(" %d", &d);
-                printf("Inserting %d...\n", d);
-                insertstart(d);
-                display();
-                i -= 1;
-            }
-            else
-            {
-                printf("Enter data: ");
-                int d;
-                scanf(" %d", &d);
-                printf("Inserting %d...\n", d);
-                insert(d);
-                display();
-            }
-        }
-
-        else if (choice == 'd')
-        {
-            printf("Deleting %d...\n", counter->data);
-            delete ();
-            display();
-        }
-
-        printf("Continue? ");
-        scanf(" %c", &cont);
-    }
-    printf("\n");
     display();
-    printf("\nFirst element is %d", first->data);
 
+    int y = 0;
+    struct node *temp;
+    temp = head;
+    // while (!temp)
+    // {
+    //     y = temp->data;
+    // }
+    // printf("%d", y);
     return 0;
 }
-
-/*
-i
-3
-y
-i
-9
-y
-i
-4
-y
-d
-n
-
-*/
